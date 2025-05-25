@@ -1,0 +1,57 @@
+# YOLOv11 Moulting Penguin Detection Config
+# Class ratio: 33.3% moulting vs 66.7% non-moulting
+
+# Dataset Paths
+path: C:/Users/Prince/OneDrive - University of Cape Town/AYOS4/EEE4113F/Moulting Detection Subsystem/Data
+train: images/train
+val: images/validation
+
+# Class Definitions
+nc: 2
+names: ["Moulting_Penguin", "Penguin_Not_Moulting"]
+
+# Enhanced Augmentation Strategy
+augment:
+  # Geometric Transformations
+  degrees: 25.0  # Increased rotation for better viewpoint coverage
+  translate: 0.2  # More translation to simulate camera movement
+  scale: 0.6  # Wider scale range
+  shear: 10.0  # Increased shear for perspective variation
+  perspective: 0.001  # Camera perspective adjustment
+  flipud: 0.4  # Vertical flips (common in penguin images)
+
+  # Color Adjustments
+  hsv_h: 0.03  # Enhanced hue variation for moulting colors
+  hsv_s: 0.9  # Higher saturation variation
+  hsv_v: 0.7  # Brighter value variations
+  motion_blur: 0.3  # Simulate camera movement
+
+  # Advanced Augmentations
+  mosaic: 1.0
+  mixup: 0.7  # Increased mixup probability
+  copy_paste: 0.3  # More occlusion handling
+  auto_augment: "randaugment"  # Learned augmentation policy
+
+# Training Parameters
+multi_scale: [704, 736, 768]  # Optimized for 768px target
+cls: 3.0  # Direct class weight (2× focus on moulting class)
+fl_gamma: 2.0  # Focal loss for hard example mining
+
+# Architecture Adjustments
+anchors:
+  - [12,16, 19,36, 40,28]  # Adjusted P3/8 anchors
+  - [36,75, 76,55, 72,146]  # Adjusted P4/16 anchors
+  - [142,110, 192,243, 459,401]  # Adjusted P5/32 anchors
+
+# Loss Component Weights
+loss:
+  box: 0.06  # Bounding box loss
+  cls: 0.8  # Class prediction loss
+  obj: 0.9  # Objectness loss
+
+  # In config.yaml
+augmentation:
+  hsv_h: 0.01  # Reduced color variation
+  degrees: 10.0  # Lower rotation
+loss:
+  cls_pw: 3.0  # Stronger class weighting

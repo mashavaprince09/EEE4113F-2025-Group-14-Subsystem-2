@@ -1,0 +1,13 @@
+# hyp.yaml
+lr0: 0.01           # you can lower base LR if overfitting
+lrf: 0.2            # final LR = lr0 * lrf
+momentum: 0.937
+weight_decay: 0.0005
+
+# classification loss weight (↑ to penalize mistakes on minority more)
+cls_pw: 1.5
+obj_pw: 1.0
+
+# switch to focal loss if you want:
+# fl_gamma: 2.0
+# label_smoothing: 0.1
